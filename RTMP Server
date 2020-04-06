@@ -1,0 +1,26 @@
+sudo apt-get update && time sudo apt-get dist-upgrade
+sudo apt-get install build-essential libpcre3 libpcre3-dev libssl-dev zlib1g-dev
+wget http://nginx.org/download/nginx-1.15....
+tar -zxvf nginx-1.15.5.tar.gz
+wget https://github.com/sergey-dryabzhinsk...
+sudo apt install unzip
+unzip dev.zip
+cd nginx-1.15.5
+./configure --with-http_ssl_module --add-module=../nginx-rtmp-module-dev
+make
+sudo make install
+sudo nano /usr/local/nginx/conf/nginx.conf
+
+
+
+rtmp {
+        server {
+                listen 1935;
+                chunk_size 4096;
+
+                application live {
+                        live on;
+                        record all;
+                }
+        }
+}
